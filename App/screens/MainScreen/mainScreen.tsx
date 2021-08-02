@@ -10,7 +10,8 @@ import AppText from '../../components/AppText';
 import AppTextInput from '../../components/AppTextInput';
 import { Item } from '../../models/item';
 import { FormModel } from './model';
-
+import validateSchema from "./validationSchema";
+import validationSchema from './validationSchema';
 
 const items = [
     {
@@ -39,6 +40,7 @@ export default function MainScreen() {
     };
     const handleSubmit = async ({ price, label, quantity }: FormModel) => {
         setItems([...items , { price, label, quantity }]) ; 
+        
         
     };
 
@@ -82,54 +84,42 @@ export default function MainScreen() {
             <Form
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
-                validationSchema={{}}
+                validationSchema={validationSchema}
 
             >
-                {/* <AppTextInput
-                style={styles.inputStyle}
-                placeholder="Enter Product Label"
-                placeholderTextColor="#CFCFCF"
-                onChangeText={(text:string) => setProductLabel(text)}
-                value={productLabel}
-            /> */}
+              
                 <FormField 
                 maxLength={255} 
                 name="label" 
                 placeholder="Enter Product Label" />
 
                 <View style={styles.horizentalTextInput}>
-                    {/* <AppTextInput
-
-                        placeholder="Enter Price"
-                        placeholderTextColor="#CFCFCF"
-                        onChangeText={(text: string) => setPrice(text)}
-                        value={price ?? "".toString()}
-                    /> */}
+                  
+                    <View  style={{width:"30%"}}>
                     <FormField
                         keyboardType="numeric"
                         maxLength={8} // includes 10000.99
                         name="price"
-                        style={{width:"30%"}}
+                      
                         placeholder="Price"
                     />
-                    {/* <AppTextInput
-                        placeholder="Enter Quantity"
-                        placeholderTextColor="#CFCFCF"
-                        onChangeText={(text: string) => setQuantity(text)}
-                        value={quantity ?? "".toString()}
-                    /> */}
-                    <FormField
+                    </View>
+                  
+                 <View   style={{width:"30%"}}>
+                      <FormField
                         keyboardType="numeric"
-                        style={{width:"30%"}}
+                      
                         maxLength={8} // includes 10000.99
                         name="quantity"
                         placeholder="quantity"
                     />
+                 </View>
+                   
 
 
 
                  <SubmitButton title="Add To List" textColor="#85B6D7" />
-                    {/* <AppText style={styles.stateSelectedText}>Add To List</AppText> */}
+                 
 
 
                 </View>
