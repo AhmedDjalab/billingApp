@@ -1,20 +1,18 @@
 import React from 'react'
 import { useState } from 'react'
 import {
-    StyleSheet, Text, View, TextInput, SafeAreaView,
-     
+    StyleSheet, View, SafeAreaView,
+
 } from 'react-native'
 import { Form, FormField, SubmitButton } from "../../components/Forms";
-import { DataTable } from 'react-native-paper';
 import AppText from '../../components/AppText';
-import AppTextInput from '../../components/AppTextInput';
 import { Item } from '../../models/item';
 import { DataModel } from '../../models/model';
-import validateSchema from "./validationSchema";
 import validationSchema from './validationSchema';
 import AppPicker from '../../components/AppPicker';
 import PickerItem from '../../components/PickerItem';
-import AppDataTable from '../../components/AppDataTable';
+import AppDataTable from './AppDataTable';
+import TotalDataScreen from './TotalDataScreen';
 
 const pickerData = [
     {
@@ -27,58 +25,42 @@ const pickerData = [
         id: 3, type: "AR", value: 3, label: 'AR-3.0%'
     }
     , {
-        id: 4, type: "AS", value: 5, label: 'AS-5.7%'
+        id: 4, type: "AS", value: 5.7, label: 'AS-5.7%'
     }
 ];
+const discount = 3;
 
 
 export default function MainScreen() {
 
-    
+
     let [items, setItems] = useState<DataModel[]>([]);
+    let [selectedTax, setSelectedTax] = useState(pickerData[0]);
+   
     let initialValues: DataModel = {
         price: "",
         quantity: "",
         label: "",
     };
+
+
+
+
     const handleSubmit = async ({ price, label, quantity }: DataModel) => {
-        setItems([...items , { price, label, quantity }]) ; 
-        
-        
+        let updatedItems = [...items, { price, label, quantity }];
+        setItems(updatedItems);
+
     };
 
-    const itemsTaxChanged = async (taxItem : Item) => {
-        console.log("this is the tax changes " , taxItem.type)
+    const itemsTaxChanged = async (taxItem: Item) => {
+        console.log("this is the tax changes ", taxItem.type)
+        setSelectedTax(taxItem);
         
-        
+
+
     };
 
-    // const modalContent = (
-    //     <>
-    //         <Button title="Close" onPress={() => setModalVisible(false)} />
-    //         <FlatList
-
-    //             data={items}
-    //             keyExtractor={item => item.id.toString()}
-    //             numColumns={1}
-    //             renderItem={({ item }) => (
-
-    //                 <TouchableOpacity
-    //                     key={item.id}
-    //                     onPress={() => {
-
-
-    //                         setSelectedTax(item.type); setModalVisible(false);
-
-
-    //                     }}>
-    //                     <View style={{ alignSelf: "center", paddingTop: 10, }} ><Text style={{ fontSize: 18 }}>{item.label}</Text>
-    //                     </View></TouchableOpacity>
-
-    //             )}
-    //         />
-    //     </>
-    // );
+  
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.topLabelsContainer}>
@@ -86,14 +68,14 @@ export default function MainScreen() {
 
                 {/* thiss is model picker */}
                 <AppPicker
-                items={pickerData}
-                numberOfColumns={1}
-            
-                PickerItemComponent={PickerItem}
-                placeholder={""}
-                onItemSelect={itemsTaxChanged}
+                    items={pickerData}
+                    numberOfColumns={1}
 
-            />
+                    PickerItemComponent={PickerItem}
+                    placeholder={""}
+                    onItemSelect={itemsTaxChanged}
+
+                />
             </View>
 
 
@@ -103,39 +85,39 @@ export default function MainScreen() {
                 validationSchema={validationSchema}
 
             >
-              
-                <FormField 
-                maxLength={255} 
-                name="label" 
-                placeholder="Enter Product Label" />
+
+                <FormField
+                    maxLength={255}
+                    name="label"
+                    placeholder="Enter Product Label" />
 
                 <View style={styles.horizentalTextInput}>
-                  
-                    <View  style={{width:"30%"}}>
-                    <FormField
-                        keyboardType="numeric"
-                        maxLength={8} // includes 10000.99
-                        name="price"
-                      
-                        placeholder="Price"
-                    />
+
+                    <View style={{ width: "30%" }}>
+                        <FormField
+                            keyboardType="numeric"
+                            maxLength={8} // includes 10000.99
+                            name="price"
+
+                            placeholder="Price"
+                        />
                     </View>
-                  
-                 <View   style={{width:"30%"}}>
-                      <FormField
-                        keyboardType="numeric"
-                      
-                        maxLength={8} // includes 10000.99
-                        name="quantity"
-                        placeholder="quantity"
-                    />
-                 </View>
-                   
+
+                    <View style={{ width: "30%" }}>
+                        <FormField
+                            keyboardType="numeric"
+
+                            maxLength={8} // includes 10000.99
+                            name="quantity"
+                            placeholder="quantity"
+                        />
+                    </View>
 
 
 
-                 <SubmitButton title="Add To List" textColor="#85B6D7" />
-                 
+
+                    <SubmitButton title="Add To List" textColor="#85B6D7" />
+
 
 
                 </View>
@@ -143,33 +125,14 @@ export default function MainScreen() {
             {
                 /* Table container data */
             }
-              <AppDataTable items={items} />
-          
+            <AppDataTable items={items}  />
+
             {
                 /* Total + taxes data*/
             }
-            <View style={styles.totalDataContainer}>
-                <View style={{ flexDirection: "row", }}>
-                    <AppText style={{ paddingEnd: 10 }}>Total Price Without tax:</AppText>
-                    <AppText>$1.000.000</AppText>
-                </View>
-
-                <View style={{ flexDirection: "row", }}>
-                    <AppText style={{ paddingEnd: 10 }}>Discunt 3.0%:</AppText>
-                    <AppText>$30.00</AppText>
-                </View>
-
-                <View style={{ flexDirection: "row", }}>
-                    <AppText style={{ paddingEnd: 10 }}>Tax 6.0%:</AppText>
-                    <AppText>$58.00</AppText>
-                </View>
-
-                <View style={{ flexDirection: "row", }}>
-                    <AppText style={{ paddingEnd: 10, fontWeight: "bold" }}>Total Price:</AppText>
-                    <AppText style={{ fontWeight: "bold" }}>$1.028.20</AppText>
-                </View>
-
-            </View>
+             <TotalDataScreen taxPercentage={selectedTax.value} 
+             items={items}
+             discount={discount} />
 
         </SafeAreaView>
 
@@ -183,14 +146,8 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
 
-    totalDataContainer: {
-        flexDirection: "column",
-        position: "absolute",
-        bottom: 20,
-        left: 20
+   
 
-    },
- 
     stateSelectedText: {
         color: "#85B6D7",
     },
