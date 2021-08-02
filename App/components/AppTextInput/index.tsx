@@ -10,9 +10,8 @@ export default function AppTextInput({
    
 }: AppTextInputProps)  {
     return (
-       
           <TextInput
-                style={styles.inputStyle}
+                style={[styles.inputStyle , style]}
                 placeholderTextColor="#CFCFCF"
                 {...otherProps}
               
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         borderColor: "#CFCFCF",
+       
 
     },
     

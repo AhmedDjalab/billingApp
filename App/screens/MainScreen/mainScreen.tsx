@@ -2,40 +2,47 @@ import React from 'react'
 import { useState } from 'react'
 import {
     StyleSheet, Text, View, TextInput, SafeAreaView,
-    
+     
 } from 'react-native'
-
+import { Form, FormField, SubmitButton } from "../../components/Forms";
 import { DataTable } from 'react-native-paper';
+import AppText from '../../components/AppText';
 import AppTextInput from '../../components/AppTextInput';
+import { Item } from '../../models/item';
+import { FormModel } from './model';
 
 
 const items = [
     {
         id: 1, type: "AL", value: 6, label: 'AL-6.0%'
-
     },
     {
         id: 2, type: "AK", value: 5, label: 'AK-5.0%'
-
     }
     , {
         id: 3, type: "AR", value: 3, label: 'AR-3.0%'
-
     }
     , {
         id: 4, type: "AS", value: 5, label: 'AS-5.7%'
-
     }
 ];
 
 
-export default function LoginScreen() {
-   
-    let [selectedTax, setSelectedTax] = useState(items[0].type);
-    let [modalVisible, setModalVisible] = useState(false);
-    let [quantity, setQuantity] = useState("");
-    let [price, setPrice] = useState("");
-    let [productLabel, setProductLabel] = useState("");
+export default function MainScreen() {
+
+    
+    let [items, setItems] = useState<FormModel[]>([]);
+    let initialValues: FormModel = {
+        price: "",
+        quantity: "",
+        label: "",
+    };
+    const handleSubmit = async ({ price, label, quantity }: FormModel) => {
+        setItems([...items , { price, label, quantity }]) ; 
+        
+    };
+
+
 
     // const modalContent = (
     //     <>
@@ -66,42 +73,67 @@ export default function LoginScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.topLabelsContainer}>
-                <Text style={{ color: "black" }}>Add Product</Text>
+                <AppText style={{ color: "black" }}>Add Product</AppText>
 
-             {/* thiss is model picker */}
+                {/* thiss is model picker */}
             </View>
 
-            <AppTextInput
+
+            <Form
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+                validationSchema={{}}
+
+            >
+                {/* <AppTextInput
                 style={styles.inputStyle}
                 placeholder="Enter Product Label"
                 placeholderTextColor="#CFCFCF"
                 onChangeText={(text:string) => setProductLabel(text)}
                 value={productLabel}
-            />
-            <View style={styles.horizentalTextInput}>
-                <AppTextInput
-                
-                    placeholder="Enter Price"
-                    placeholderTextColor="#CFCFCF"
-                    onChangeText={(text:string ) => setPrice( text )}
-                    value={ price??"".toString()}
-                />
-                <AppTextInput
-                    placeholder="Enter Quantity"
-                    placeholderTextColor="#CFCFCF"
-                    onChangeText={(text:string) => setQuantity(text)}
-                    value={quantity??"".toString()}
-                />
+            /> */}
+                <FormField 
+                maxLength={255} 
+                name="label" 
+                placeholder="Enter Product Label" />
+
+                <View style={styles.horizentalTextInput}>
+                    {/* <AppTextInput
+
+                        placeholder="Enter Price"
+                        placeholderTextColor="#CFCFCF"
+                        onChangeText={(text: string) => setPrice(text)}
+                        value={price ?? "".toString()}
+                    /> */}
+                    <FormField
+                        keyboardType="numeric"
+                        maxLength={8} // includes 10000.99
+                        name="price"
+                        style={{width:"30%"}}
+                        placeholder="Price"
+                    />
+                    {/* <AppTextInput
+                        placeholder="Enter Quantity"
+                        placeholderTextColor="#CFCFCF"
+                        onChangeText={(text: string) => setQuantity(text)}
+                        value={quantity ?? "".toString()}
+                    /> */}
+                    <FormField
+                        keyboardType="numeric"
+                        style={{width:"30%"}}
+                        maxLength={8} // includes 10000.99
+                        name="quantity"
+                        placeholder="quantity"
+                    />
 
 
-              
+
+                 <SubmitButton title="Add To List" textColor="#85B6D7" />
+                    {/* <AppText style={styles.stateSelectedText}>Add To List</AppText> */}
 
 
-                <Text style={styles.stateSelectedText}>Add To List</Text>
-
-
-            </View>
-
+                </View>
+            </Form>
             {
                 /* Table container data */
             }
@@ -115,16 +147,16 @@ export default function LoginScreen() {
                         <DataTable.Title style={{ flex: 2 }}>Total Price</DataTable.Title>
                     </DataTable.Header>
 
-                   { 
-                   
-                   
-                   <DataTable.Row>
-                        <DataTable.Cell style={{ flex: 2 }} >John</DataTable.Cell>
-                        <DataTable.Cell>1</DataTable.Cell>
-                        <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
-                        <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
-                    </DataTable.Row>
-}
+                    {
+
+
+                        <DataTable.Row>
+                            <DataTable.Cell style={{ flex: 2 }} >John</DataTable.Cell>
+                            <DataTable.Cell>1</DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
+                            <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
+                        </DataTable.Row>
+                    }
                 </DataTable>
             </View>
             {
@@ -132,23 +164,23 @@ export default function LoginScreen() {
             }
             <View style={styles.totalDataContainer}>
                 <View style={{ flexDirection: "row", }}>
-                    <Text style={{ paddingEnd: 10 }}>Total Price Without tax:</Text>
-                    <Text>$1.000.000</Text>
+                    <AppText style={{ paddingEnd: 10 }}>Total Price Without tax:</AppText>
+                    <AppText>$1.000.000</AppText>
                 </View>
 
                 <View style={{ flexDirection: "row", }}>
-                    <Text style={{ paddingEnd: 10 }}>Discunt 3.0%:</Text>
-                    <Text>$30.00</Text>
+                    <AppText style={{ paddingEnd: 10 }}>Discunt 3.0%:</AppText>
+                    <AppText>$30.00</AppText>
                 </View>
 
                 <View style={{ flexDirection: "row", }}>
-                    <Text style={{ paddingEnd: 10 }}>Tax 6.0%:</Text>
-                    <Text>$58.00</Text>
+                    <AppText style={{ paddingEnd: 10 }}>Tax 6.0%:</AppText>
+                    <AppText>$58.00</AppText>
                 </View>
 
                 <View style={{ flexDirection: "row", }}>
-                    <Text style={{ paddingEnd: 10, fontWeight: "bold" }}>Total Price:</Text>
-                    <Text style={{ fontWeight: "bold" }}>$1.028.20</Text>
+                    <AppText style={{ paddingEnd: 10, fontWeight: "bold" }}>Total Price:</AppText>
+                    <AppText style={{ fontWeight: "bold" }}>$1.028.20</AppText>
                 </View>
 
             </View>
@@ -189,7 +221,7 @@ const styles = StyleSheet.create({
         marginTop: 10
 
     },
- 
+
 
     topLabelsContainer: {
 
