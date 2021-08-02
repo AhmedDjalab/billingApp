@@ -21,14 +21,16 @@ export default function AppPicker({
     numberOfColumns = 1,
     onItemSelect,
     PickerItemComponent = PickerItem,
-    placeholder,
-    selectedItem
+    placeholder = "",
+    
+    
 }: AppPickerProps) {
     const [modalVisible, setModalVisible] = useState(false);
-
+    let [selectedItem , setSelectedItem] = useState(items[0]);
     const handleItemSelect = (item: Item) => {
-        onItemSelect(item);
+        setSelectedItem(item);
         setModalVisible(false);
+        onItemSelect(item);
     };
 
     const modalContent = (

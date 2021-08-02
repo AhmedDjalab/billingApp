@@ -12,8 +12,10 @@ import { Item } from '../../models/item';
 import { FormModel } from './model';
 import validateSchema from "./validationSchema";
 import validationSchema from './validationSchema';
+import AppPicker from '../../components/AppPicker';
+import PickerItem from '../../components/PickerItem';
 
-const items = [
+const pickerData = [
     {
         id: 1, type: "AL", value: 6, label: 'AL-6.0%'
     },
@@ -44,7 +46,11 @@ export default function MainScreen() {
         
     };
 
-
+    const itemsTaxChanged = async (taxItem : Item) => {
+        console.log("this is the tax changes " , taxItem.type)
+        
+        
+    };
 
     // const modalContent = (
     //     <>
@@ -78,6 +84,15 @@ export default function MainScreen() {
                 <AppText style={{ color: "black" }}>Add Product</AppText>
 
                 {/* thiss is model picker */}
+                <AppPicker
+                items={pickerData}
+                numberOfColumns={1}
+            
+                PickerItemComponent={PickerItem}
+                placeholder={""}
+                onItemSelect={itemsTaxChanged}
+
+            />
             </View>
 
 
