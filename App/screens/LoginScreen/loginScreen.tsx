@@ -2,10 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import {
     StyleSheet, Text, View, TextInput, SafeAreaView,
-    FlatList, Button, Modal, TouchableOpacity,
-    TouchableWithoutFeedback, Platform
+    
 } from 'react-native'
+
 import { DataTable } from 'react-native-paper';
+import AppTextInput from '../../components/AppTextInput';
+
+
 const items = [
     {
         id: 1, type: "AL", value: 6, label: 'AL-6.0%'
@@ -27,80 +30,71 @@ const items = [
 
 
 export default function LoginScreen() {
-    let [username, setUsername] = useState("");
-    let [password, setPassword] = useState("");
+   
     let [selectedTax, setSelectedTax] = useState(items[0].type);
     let [modalVisible, setModalVisible] = useState(false);
+    let [quantity, setQuantity] = useState("");
+    let [price, setPrice] = useState("");
+    let [productLabel, setProductLabel] = useState("");
 
-    const modalContent = (
-        <>
-            <Button title="Close" onPress={() => setModalVisible(false)} />
-            <FlatList
+    // const modalContent = (
+    //     <>
+    //         <Button title="Close" onPress={() => setModalVisible(false)} />
+    //         <FlatList
 
-                data={items}
-                keyExtractor={item => item.id.toString()}
-                numColumns={1}
-                renderItem={({ item }) => (
+    //             data={items}
+    //             keyExtractor={item => item.id.toString()}
+    //             numColumns={1}
+    //             renderItem={({ item }) => (
 
-                    <TouchableOpacity
-                        key={item.id}
-                        onPress={() => {
-
-
-                            setSelectedTax(item.type); setModalVisible(false);
+    //                 <TouchableOpacity
+    //                     key={item.id}
+    //                     onPress={() => {
 
 
-                        }}>
-                        <View style={{ alignSelf: "center", paddingTop: 10, }} ><Text style={{ fontSize: 18 }}>{item.label}</Text>
-                        </View></TouchableOpacity>
+    //                         setSelectedTax(item.type); setModalVisible(false);
 
-                )}
-            />
-        </>
-    );
+
+    //                     }}>
+    //                     <View style={{ alignSelf: "center", paddingTop: 10, }} ><Text style={{ fontSize: 18 }}>{item.label}</Text>
+    //                     </View></TouchableOpacity>
+
+    //             )}
+    //         />
+    //     </>
+    // );
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.topLabelsContainer}>
                 <Text style={{ color: "black" }}>Add Product</Text>
 
-                <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-                    <Text style={styles.stateSelectedText}>{`State Selected: ${selectedTax}`}</Text>
-                </TouchableWithoutFeedback>
+             {/* thiss is model picker */}
             </View>
 
-            <TextInput
+            <AppTextInput
                 style={styles.inputStyle}
                 placeholder="Enter Product Label"
                 placeholderTextColor="#CFCFCF"
-                onChangeText={text => setUsername(text)}
-                value={username}
+                onChangeText={(text:string) => setProductLabel(text)}
+                value={productLabel}
             />
             <View style={styles.horizentalTextInput}>
-                <TextInput
-                    style={[styles.inputStyle, styles.inputHrizentalStyle]}
+                <AppTextInput
+                
                     placeholder="Enter Price"
                     placeholderTextColor="#CFCFCF"
-                    onChangeText={text => setUsername(text)}
-                    value={username}
+                    onChangeText={(text:string ) => setPrice( text )}
+                    value={ price??"".toString()}
                 />
-                <TextInput
-                    style={[styles.inputStyle, styles.inputHrizentalStyle]}
+                <AppTextInput
                     placeholder="Enter Quantity"
                     placeholderTextColor="#CFCFCF"
-                    onChangeText={text => setUsername(text)}
-                    value={username}
+                    onChangeText={(text:string) => setQuantity(text)}
+                    value={quantity??"".toString()}
                 />
 
 
-                <Modal animationType="slide" visible={modalVisible}>
-
-
-                    {modalContent}
-
-
-
-
-                </Modal>
+              
 
 
                 <Text style={styles.stateSelectedText}>Add To List</Text>
@@ -121,13 +115,16 @@ export default function LoginScreen() {
                         <DataTable.Title style={{ flex: 2 }}>Total Price</DataTable.Title>
                     </DataTable.Header>
 
-                    <DataTable.Row>
+                   { 
+                   
+                   
+                   <DataTable.Row>
                         <DataTable.Cell style={{ flex: 2 }} >John</DataTable.Cell>
                         <DataTable.Cell>1</DataTable.Cell>
                         <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
                         <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
                     </DataTable.Row>
-
+}
                 </DataTable>
             </View>
             {
@@ -181,7 +178,9 @@ const styles = StyleSheet.create({
 
 
     },
-
+    stateSelectedText: {
+        color: "#85B6D7",
+    },
     horizentalTextInput: {
 
         flexDirection: "row",
@@ -190,9 +189,7 @@ const styles = StyleSheet.create({
         marginTop: 10
 
     },
-    stateSelectedText: {
-        color: "#85B6D7",
-    },
+ 
 
     topLabelsContainer: {
 
