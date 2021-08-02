@@ -9,11 +9,12 @@ import { DataTable } from 'react-native-paper';
 import AppText from '../../components/AppText';
 import AppTextInput from '../../components/AppTextInput';
 import { Item } from '../../models/item';
-import { FormModel } from './model';
+import { DataModel } from '../../models/model';
 import validateSchema from "./validationSchema";
 import validationSchema from './validationSchema';
 import AppPicker from '../../components/AppPicker';
 import PickerItem from '../../components/PickerItem';
+import AppDataTable from '../../components/AppDataTable';
 
 const pickerData = [
     {
@@ -34,13 +35,13 @@ const pickerData = [
 export default function MainScreen() {
 
     
-    let [items, setItems] = useState<FormModel[]>([]);
-    let initialValues: FormModel = {
+    let [items, setItems] = useState<DataModel[]>([]);
+    let initialValues: DataModel = {
         price: "",
         quantity: "",
         label: "",
     };
-    const handleSubmit = async ({ price, label, quantity }: FormModel) => {
+    const handleSubmit = async ({ price, label, quantity }: DataModel) => {
         setItems([...items , { price, label, quantity }]) ; 
         
         
@@ -142,28 +143,8 @@ export default function MainScreen() {
             {
                 /* Table container data */
             }
-
-            <View style={styles.tableContainer}>
-                <DataTable >
-                    <DataTable.Header>
-                        <DataTable.Title style={{ flex: 2 }} >Product Name</DataTable.Title>
-                        <DataTable.Title>Nos.</DataTable.Title>
-                        <DataTable.Title style={{ flex: 2 }}>Price</DataTable.Title>
-                        <DataTable.Title style={{ flex: 2 }}>Total Price</DataTable.Title>
-                    </DataTable.Header>
-
-                    {
-
-
-                        <DataTable.Row>
-                            <DataTable.Cell style={{ flex: 2 }} >John</DataTable.Cell>
-                            <DataTable.Cell>1</DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
-                            <DataTable.Cell style={{ flex: 2 }} >$1.000.000</DataTable.Cell>
-                        </DataTable.Row>
-                    }
-                </DataTable>
-            </View>
+              <AppDataTable items={items} />
+          
             {
                 /* Total + taxes data*/
             }
@@ -209,12 +190,7 @@ const styles = StyleSheet.create({
         left: 20
 
     },
-    tableContainer: {
-
-        paddingTop: 10,
-
-
-    },
+ 
     stateSelectedText: {
         color: "#85B6D7",
     },

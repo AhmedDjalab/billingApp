@@ -1,4 +1,4 @@
-interface FormModel {
+interface DataModel {
     label: string;
     price: string;
     quantity:string;
@@ -6,4 +6,4 @@ interface FormModel {
 
 }
 
-export type { FormModel };
+export type { DataModel };
