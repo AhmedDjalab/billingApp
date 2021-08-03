@@ -93,7 +93,7 @@ export default function MainScreen() {
 
                 <View style={styles.horizentalTextInput}>
 
-                    <View style={{ width: "30%" }}>
+                    <View style={{ width: "30%" , marginRight:20 }}>
                         <FormField
                             keyboardType="numeric"
                             maxLength={8} // includes 10000.99
@@ -115,8 +115,10 @@ export default function MainScreen() {
 
 
 
-
+                    <View style={{ paddingBottom:10}}>
                     <SubmitButton title="Add To List" textColor="#85B6D7" />
+
+                    </View>
 
 
 
@@ -154,8 +156,8 @@ const styles = StyleSheet.create({
     horizentalTextInput: {
 
         flexDirection: "row",
-        justifyContent: "space-between"
-        , alignItems: "center",
+       justifyContent:"space-between",
+         alignItems: "center",
         marginTop: 10
 
     },
@@ -171,8 +173,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        margin: 30
-        , padding: 20
+        paddingHorizontal:30,
+        paddingTop:40
+      
 
     },
     inputStyle: {

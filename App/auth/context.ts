@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import authStorage from './storage';
 
 
 interface User {
@@ -23,6 +24,7 @@ const useAuthContext = () => {
     const login = (token: string) => {
         const currentUser = jwtDecode<JwtPayload>(token);
         setUser(currentUser);
+        authStorage.storeToken(token);
     };
 
     const logout = () => {

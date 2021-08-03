@@ -9,11 +9,15 @@ export default function AppButton({
     color = colors.primary,
     textColor = "Black",
     title,
-    onPress
+    onPress , 
+    contained,
+    
 }: AppButtonProps) {
     return (
+       
+       
         <TouchableOpacity
-            //style={[{ backgroundColor: color }, styles.button]}
+         style={[contained ? { backgroundColor: color } : {}, styles.button]}
             onPress={onPress}>
             <Text style={{color:textColor}}>{title}</Text>
         </TouchableOpacity>

@@ -37,7 +37,7 @@ export default function TotalDataScreen({items,discount,taxPercentage} : TotalDa
         <View style={styles.totalDataContainer}>
                 <View style={{ flexDirection: "row", }}>
                     <AppText style={styles.title}>Total Price Without tax:</AppText>
-                    <AppText>{totalWithoutTax.toString()}</AppText>
+                    <AppText>{totalWithoutTax.toFixed(2)}</AppText>
                 </View>
 
                 <View style={{ flexDirection: "row", }}>
@@ -47,12 +47,12 @@ export default function TotalDataScreen({items,discount,taxPercentage} : TotalDa
 
                 <View style={{ flexDirection: "row", }}>
                     <AppText style={styles.title}>{`Tax ${taxPercentage}%:`}</AppText>
-                    <AppText>{`$${taxValue}`}</AppText>
+                    <AppText>{`$${taxValue.toFixed(2) }`}</AppText>
                 </View>
 
                 <View style={{ flexDirection: "row", }}>
                     <AppText style={[styles.title , styles.boldTitle]}>Total Price:</AppText>
-                    <AppText style={styles.boldTitle}>{`$${totalWithTax}`}</AppText>
+                    <AppText style={styles.boldTitle}>{`$${totalWithTax.toFixed(2)}`}</AppText>
                 </View>
 
             </View>

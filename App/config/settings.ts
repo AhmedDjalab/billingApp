@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 
-const apiUrl = 'http://192.168.1.10:9000/api';
+const apiUrl = 'http://192.168.1.4:4000';
 
 const settings = {
     dev: {

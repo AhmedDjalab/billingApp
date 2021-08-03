@@ -1,4 +1,4 @@
-import { DataModel } from "../../models/model";
+import { DataModel } from "../../../models/model";
 
 interface AppDataTableProps {
   

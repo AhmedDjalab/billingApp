@@ -26,7 +26,7 @@ export default function AppDataTable({items} : AppDataTableProps) {
              <DataTable.Cell style={{ flex: 2 }} >{item.label}</DataTable.Cell>
              <DataTable.Cell>{item.quantity}</DataTable.Cell>
              <DataTable.Cell style={{ flex: 2 }} >{"$"+item.price}</DataTable.Cell>
-             <DataTable.Cell style={{ flex: 2 }} >{"$"+parseFloat(item.price)  * parseFloat(item.quantity) }</DataTable.Cell>
+             <DataTable.Cell style={{ flex: 2 }} >{"$"+(parseFloat(item.price)  * parseFloat(item.quantity)).toFixed(2) }</DataTable.Cell>
          </DataTable.Row> ))
          }
              

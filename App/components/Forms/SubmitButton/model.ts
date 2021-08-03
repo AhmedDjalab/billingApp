@@ -1,4 +1,5 @@
 export default interface SubmitButtonProps {
     title: string;
-    textColor: string;
+    textColor?: string;
+    contained?:boolean
 }
