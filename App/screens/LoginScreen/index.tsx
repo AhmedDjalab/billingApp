@@ -26,7 +26,7 @@ export default function LoginScreen() {
             return;
         }
         setLoginFailed(false);
-        console.log("thos os data login " , )
+        console.log("thos os data login " ,result.data["token"] )
         login( result.data["token"] );
     
     
