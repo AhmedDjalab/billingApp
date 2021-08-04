@@ -174,7 +174,8 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         paddingHorizontal:30,
-        paddingTop:40
+        paddingTop:40 , 
+      
       
 
     },

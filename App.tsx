@@ -8,11 +8,12 @@ import MainScreen from './App/screens/MainScreen/mainScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import authStorage from './App/auth/storage';
 import AppLoading from 'expo-app-loading';
+import navigationTheme from './App/navigation/navigationTheme';
 
 export default function App() {
   const [user, setUser] = useState(null);
   const [isReady, setIsReady] = useState(false);
-
+  const Stack = createStackNavigator() ;
   const restoreUser = async () => {
     const currentUser = await authStorage.getUser();
     console.log("this is from cach " , currentUser)
@@ -35,8 +36,17 @@ if (!isReady)
    
     <View style={styles.container}>
     <AuthContext.Provider value={{ user, setUser }}>
-       <NavigationContainer> 
-       {user ? <MainScreen /> :<LoginScreen />}
+       <NavigationContainer  theme={navigationTheme}> 
+       {user ? <Stack.Navigator >
+         <Stack.Screen  
+       component={MainScreen} 
+       name={"Billing"}
+       options={{
+        title: "Billing",
+        headerTitleAlign: 'center',
+      }}
+       
+       /></Stack.Navigator> :<LoginScreen />}
        </NavigationContainer>
     </AuthContext.Provider>
 </View>
@@ -47,7 +57,7 @@ if (!isReady)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  
+   
     backgroundColor: '#fff',
    
   },
