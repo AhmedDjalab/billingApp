@@ -9,7 +9,7 @@ interface AppPickerProps {
     onItemSelect: (item: Item) => void;
     PickerItemComponent?: ElementType;
     placeholder: string;
-    ///selectedItem: Item;
+    selectedItem?: Item;
 }
 
 export type { Item, AppPickerProps };

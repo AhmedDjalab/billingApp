@@ -11,13 +11,15 @@ export default function AppButton({
     title,
     onPress , 
     contained,
+    testID = "SubmitButton"
     
 }: AppButtonProps) {
     return (
        
        
         <TouchableOpacity
-         style={[contained ? { backgroundColor: color } : {}, styles.button]}
+         testID="SubmitButton"
+        style={[contained ? { backgroundColor: color } : {}, styles.button]}
             onPress={onPress}>
             <Text style={{color:textColor}}>{title}</Text>
         </TouchableOpacity>

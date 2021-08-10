@@ -3,5 +3,6 @@ export default interface AppButtonProps {
     onPress: () => void;
     title: string;
     textColor: string;
+    testID?: string;
     contained: boolean;
 }

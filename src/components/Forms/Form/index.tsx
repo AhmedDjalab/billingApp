@@ -11,6 +11,7 @@ export default function Form({
 }: FormProps) {
     return (
         <Formik
+        
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}>

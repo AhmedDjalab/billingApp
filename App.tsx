@@ -1,17 +1,20 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AuthContext } from './App/auth/context';
-import LoginScreen from './App/screens/LoginScreen';
-import MainScreen from './App/screens/MainScreen/mainScreen';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { AuthContext, useAuthContext } from './src/auth/context';
+import LoginScreen from './src/screens/LoginScreen';
+import MainScreen from './src/screens/MainScreen/mainScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import authStorage from './App/auth/storage';
+import authStorage from './src/auth/storage';
 import AppLoading from 'expo-app-loading';
-import navigationTheme from './App/navigation/navigationTheme';
+import navigationTheme from './src/navigation/navigationTheme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const { logout } = useAuthContext();
+
   const [isReady, setIsReady] = useState(false);
   const Stack = createStackNavigator() ;
   const restoreUser = async () => {
@@ -44,6 +47,18 @@ if (!isReady)
        options={{
         title: "Billing",
         headerTitleAlign: 'center',
+        headerRight : () =>(
+          <View style={styles.iconContainer}>
+           <MaterialCommunityIcons
+                            color="red"
+                            name="logout"
+                            size={30}
+                            onPress={()=> setUser(null)}
+                            
+                        />
+          
+          </View>
+        )
       }}
        
        /></Stack.Navigator> :<LoginScreen />}
@@ -61,4 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
    
   },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: 120
+  }
 });

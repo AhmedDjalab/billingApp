@@ -1,6 +1,7 @@
 import Constants from 'expo-constants';
 
-const apiUrl = 'http://192.168.1.4:4000';
+//?my api ( asp net core 3.0 )
+const apiUrl = 'http://api.kheddam.com/api';
 
 const settings = {
     dev: {
@@ -17,7 +18,7 @@ const settings = {
 const getCurrentSettings = () => {
     // eslint-disable-next-line no-undef
     if (__DEV__) return settings.dev;
-    if (Constants.manifest.releaseChannel === 'staging')
+    if (Constants?.manifest?.releaseChannel === 'staging')
         return settings.staging;
     return settings.prod;
 };

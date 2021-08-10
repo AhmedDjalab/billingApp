@@ -22,11 +22,11 @@ export default function AppPicker({
     onItemSelect,
     PickerItemComponent = PickerItem,
     placeholder = "",
-    
+    selectedItem,
     
 }: AppPickerProps) {
     const [modalVisible, setModalVisible] = useState(false);
-    let [selectedItem , setSelectedItem] = useState(items[0]);
+    let [selectedTaxType , setSelectedItem] = useState(items[0]);
     const handleItemSelect = (item: Item) => {
         setSelectedItem(item);
         setModalVisible(false);
@@ -68,7 +68,7 @@ export default function AppPicker({
     return (
         <>
             <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-                <Text style={styles.stateSelectedText}>{`State Selected: ${selectedItem.type}`}</Text>
+                <Text style={styles.stateSelectedText}>{`State Selected: ${selectedTaxType.type}`}</Text>
             </TouchableWithoutFeedback>
             <Modal animationType="slide" visible={modalVisible}>
 

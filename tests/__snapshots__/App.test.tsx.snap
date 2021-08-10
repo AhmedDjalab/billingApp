@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> renders correctly, test using Jest + Enzyme 1`] = `ReactWrapper {}`;
+
+exports[`Form Table  renders correctly, test using Jest + Enzyme 1`] = `ReactWrapper {}`;
+
+exports[`renders correctly, test using Jest + Enzyme 1`] = `ReactWrapper {}`;
